@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rendering renders without crashing 1`] = `
+<div
+  className="Popup"
+>
+  <h1
+    id="title"
+  >
+    TabStash
+  </h1>
+  <p
+    className="alert-text"
+  />
+  <div
+    className="buttons-container"
+  >
+    <button
+      id="stash-button"
+      onClick={[Function]}
+      title="Stash current tabs"
+    >
+      Stash
+    </button>
+    <button
+      id="apply-button"
+      onClick={[Function]}
+      title="Apply stashed tabs"
+    >
+      Apply
+    </button>
+    <button
+      id="clear-button"
+      onClick={[Function]}
+      title="Clear stashed tabs"
+    >
+      Clear
+    </button>
+  </div>
+</div>
+`;

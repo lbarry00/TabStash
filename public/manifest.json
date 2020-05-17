@@ -4,7 +4,10 @@
   "author": "Lauren Barry",
   "version": "0.1",
   "description": "git stash but for Chrome tabs.",
-  "permissions": ["storage"],
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
   "browser_action": {
     "default_popup": "index.html",
     "default_title": "Open TabStash"
