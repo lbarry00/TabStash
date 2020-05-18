@@ -30,7 +30,8 @@ class Popup extends Component {
       results.forEach(function(tab) {
         tabUrls.push({
           url: tab.url,
-          index: tab.index
+          index: tab.index,
+          active: tab.active
         });
       });
 
@@ -63,7 +64,8 @@ class Popup extends Component {
         // create new tab w/ index
         chrome.tabs.create({
           url: tab.url,
-          index: tab.index
+          index: tab.index,
+          active: tab.active
         });
       });
     })
