@@ -82,7 +82,7 @@ class Popup extends Component {
 
     const advancedMenu = this.state.showAdvanced ?
       <div className="advanced-menu">
-        <button id="clear-button" title="Clear stashed tabs" onClick={this.handleClear}>Clear</button>
+        <button id="clear-button" title="Clear stashed tabs" onClick={this.handleClear}>Clear Stash</button>
       </div> : null;
 
     return (
