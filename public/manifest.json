@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "TabStash",
   "author": "Lauren Barry",
-  "version": "0.1",
+  "version": "1.0",
   "description": "git stash but for Chrome tabs.",
   "permissions": [
     "storage",

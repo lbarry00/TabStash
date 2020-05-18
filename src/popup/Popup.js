@@ -6,7 +6,7 @@ class Popup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      alertText: " ",
+      alertText: "",
       showAdvanced: false
     }
     this.toggleAdvanced = this.toggleAdvanced.bind(this);
@@ -53,7 +53,7 @@ class Popup extends Component {
       // handle empty stash
       if (Object.keys(result).length === 0) {
         // display empty stash message
-        const alertString = "Stash is empty.";
+        const alertString = "Cannot apply, stash is empty.";
         _this.setState({alertText: alertString});
         return;
       }
