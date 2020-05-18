@@ -6,12 +6,17 @@ class Popup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      alertText: ""
+      alertText: " ",
+      showAdvanced: false
     }
-
+    this.toggleAdvanced = this.toggleAdvanced.bind(this);
     this.handleStash = this.handleStash.bind(this);
     this.handleApply = this.handleApply.bind(this);
     this.handleClear = this.handleClear.bind(this);
+  }
+
+  toggleAdvanced() {
+    this.setState({showAdvanced: !this.state.showAdvanced});
   }
 
   handleStash() {
@@ -45,7 +50,7 @@ class Popup extends Component {
     // retrieve stashed tabs from storage
     chrome.storage.local.get(["tabStash"], function(result) {
       // handle empty stash
-      if (Object.keys(result).length == 0) {
+      if (Object.keys(result).length === 0) {
         // display empty stash message
         const alertString = "Stash is empty.";
         _this.setState({alertText: alertString});
@@ -73,15 +78,24 @@ class Popup extends Component {
 
   render() {
     const alertText = this.state.alertText;
+    const menuIcon = this.state.showAdvanced ? "\u2715 Close" : "\u2630 Menu";
+
+    const advancedMenu = this.state.showAdvanced ?
+      <div className="advanced-menu">
+        <button id="clear-button" title="Clear stashed tabs" onClick={this.handleClear}>Clear</button>
+      </div> : null;
+
     return (
-      <div className="Popup">
+      <div className="popup">
         <h1 id="title">TabStash</h1>
+        <img src="./img/icon128.png" alt="TabStash icon" ></img>
         <p className="alert-text">{alertText}</p>
-        <div className="buttons-container">
+        <div className="main-buttons-container">
           <button id="stash-button" title="Stash current tabs" onClick={this.handleStash}>Stash</button>
           <button id="apply-button" title="Apply stashed tabs" onClick={this.handleApply}>Apply</button>
-          <button id="clear-button" title="Clear stashed tabs" onClick={this.handleClear}>Clear</button>
         </div>
+        <div id="adv-menu-icon" onClick={this.toggleAdvanced}>{menuIcon}</div>
+        {advancedMenu}
       </div>
     );
   }

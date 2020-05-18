@@ -1,0 +1,53 @@
+/* colors */
+$brick: #D98041;
+$light-blue: #C3E3E6;
+$blue: #1cb2e8;
+$slate: #102440;
+$grey: #6B7E99;
+
+/* globals */
+@font-face {
+  font-family: 'quicksandbook';
+  src: url('fonts/quicksand_book-webfont.woff2') format('woff2'),
+    url('fonts/quicksand_book-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'quicksandbold';
+  src: url('fonts/quicksand_bold-webfont.woff2') format('woff2'),
+    url('fonts/quicksand_bold-webfont.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+
+}
+
+html {
+  width: 300px;
+  font-family: "quicksandbook", Arial, sans-serif;
+}
+body {
+  font-family: "quicksandbook", Arial, sans-serif;
+}
+
+@mixin button {
+  font-size: 14px;
+  font-family: "quicksandbold";
+  border-radius: 3px;
+  flex-grow: 1;
+  background-color: $blue;
+  border: 0;
+  border-bottom: 3px solid darken($blue, 15%);
+  box-shadow: 0px 2px 1px #000000FF;
+  color: white;
+
+  &:hover {
+    cursor: pointer;
+    background-color: lighten($blue, 7%);
+  }
+}
+
+
+/* imports */
+@import "./popup/Popup.scss";

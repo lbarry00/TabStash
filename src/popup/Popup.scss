@@ -1,0 +1,71 @@
+.popup {
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    margin: 2%;
+    padding: 10px;
+    text-align: center;
+    font-weight: normal;
+  }
+
+  img {
+    height: auto;
+    width: 64px;
+    align-self: center;
+  }
+
+  .alert-text {
+    align-self: center;
+  }
+}
+
+.main-buttons-container {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+
+  button {
+    padding: 5px 10px;
+    margin: 0px 10px;
+
+    @include button;
+  }
+}
+
+#adv-menu-icon {
+  color: black;
+  text-decoration: none;
+  font-size: 16px;
+  user-select: none;
+  align-self: center;
+  padding: 3px 10px;
+  margin: 20px 10px;
+  margin-bottom: 0px;
+
+  &:active, &:hover {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: darken(white, 10%);
+  }
+}
+
+.advanced-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  margin: 10px 40px;
+
+  button {
+    margin: 5px;
+    padding: 5px;
+    @include button;
+
+    &:first-child {
+      margin-top: 0px;
+    }
+  }
+}
