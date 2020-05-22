@@ -2,11 +2,20 @@
  `git stash`, but for Chrome tabs.
 
 ## About
-TabStash is a Chrome extension intended for saving currently open Chrome tabs to be opened later. Inspired by the functionality of `git`'s `stash` command.
+TabStash is a lightweight Chrome extension that allows users to temporarily save their currently-opened browser tabs, to be re-opened later. 
 
-**Why not just enable the "Continue where you left off" setting in Chrome?**
+### Features
+- Save all currently open tabs in a "stash"
+    - Saves the tab URL, position in browser bar, and whether the tab is focused
+- Restore the most recently stashed tabs
+- Stash multiple sets of tabs
+- Restore a specific stash
+- Delete a stash
+- Clear all stashes
 
-I don't actually want my tabs to be saved *every* time. 90% of the time, I like my homepage to be displayed when I open Chrome. Occasionally though, I want to be able to re-visit the tabs I had opened before, without having to open up my browser history.
+### Why use TabStash?
+
+Although this functionality already exists in the "continue where you left off" feature of Chrome or with the Ctrl+Shift+T shortcut, many users want to easily restore their tabs without permanently enabling this setting.
 
 ### Development/Build Scripts
 - `npm start`
@@ -15,3 +24,4 @@ I don't actually want my tabs to be saved *every* time. 90% of the time, I like 
 	- Run tests
 - `npm run build`
 	- Build unpacked extension
+	- Load in chrome://extensions with "Developer mode" enabled, point to `/build` folder
