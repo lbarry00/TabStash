@@ -11,7 +11,7 @@
 
   img {
     height: auto;
-    width: 64px;
+    width: 72px;
     align-self: center;
   }
 
@@ -61,12 +61,21 @@
   flex-direction: column;
   align-items: stretch;
   justify-content: center;
-  margin: 10px 40px;
+  margin: 10px 10px;
 
-  button {
+  p {
+    font-size: 12px;
     margin: 5px;
-    padding: 5px;
+    margin-left: 0px;
+    font-weight: bold;
+  }
+
+  #clear-button {
+    margin: 10px;
+    padding: 5px 10px;
+
     @include button;
+    align-self: center;
 
     &:first-child {
       margin-top: 0px;

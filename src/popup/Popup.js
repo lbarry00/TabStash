@@ -1,6 +1,11 @@
 /*global chrome*/
 import React, {Component} from 'react';
 
+import StashList from "../StashList/StashList";
+
+// include lodash for collections
+var _ = require("lodash");
+
 class Popup extends Component {
 
   constructor(props) {
@@ -26,37 +31,50 @@ class Popup extends Component {
   handleStash() {
     const _this = this; // for scoping inside callbacks
 
-    // query all tabs
+    // query all open tabs
     chrome.tabs.query({}, function(results) {
-      let tabUrls = []; // list of all open tabs
-      let alertString; // error/confirmation request
+      let newStash = []; // list of all open tabs
+      let alertString; // error/confirmation message
 
       // get all open tabs' urls and indices
       results.forEach(function(tab) {
         // save url, index, and active status of each tab
-        tabUrls.push({
+        // also store favicon for use in stash list
+        newStash.push({
           url: tab.url,
           index: tab.index,
-          active: tab.active
+          active: tab.active,
+          favIconUrl: tab.favIconUrl || ""
         });
       });
 
-      // store in chrome storage as json string
-      chrome.storage.local.set({tabStash: tabUrls}, function() {
-        // set error text if error occurred
-        if (chrome.runtime.lastError) {
-          alertString = "An error occurred, tabs failed to be stashed."
-          _this.setState({ alertText: alertString, alertIsError: true });
-        } else { // set confirmation text if success
-          alertString = tabUrls.length + " tabs stashed.";
-          _this.setState({ alertText: alertString, alertIsError: false });
+      // get the current stash list
+      chrome.storage.local.get(["tabStash"], function(result) {
+        let stashList = result.tabStash;
+
+        // if there's an existing list of stashes, need to initialize the array
+        if(typeof stashList == "undefined") {
+          stashList = [];
         }
+        stashList.push(newStash);
+
+        // store the updated array in browser storage
+        chrome.storage.local.set({tabStash: stashList}, function() {
+          // set error text if error occurred
+          if (chrome.runtime.lastError) {
+            alertString = "An error occurred, tabs failed to be stashed."
+            _this.setState({ alertText: alertString, alertIsError: true });
+          } else { // set confirmation text if success, update state w/ new list
+            alertString = newStash.length + " tabs stashed.";
+            _this.setState({ stashList: stashList, alertText: alertString, alertIsError: false });
+          }
+        });
       });
     });
   }
 
   handleApply() {
-    const _this = this;
+    const _this = this; // for scoping inside callbacks
 
     // retrieve stashed tabs from storage
     chrome.storage.local.get(["tabStash"], function(result) {
@@ -69,8 +87,10 @@ class Popup extends Component {
         return;
       }
 
-      // handle empty stash
-      if (Object.keys(result).length === 0) {
+      let stashList = result.tabStash;
+
+      // handle empty stash list
+      if (stashList.length === 0) {
         // display empty stash message
         const alertString = "Cannot apply, stash is empty.";
         _this.setState({ alertText: alertString, alertIsError: true });
@@ -78,8 +98,7 @@ class Popup extends Component {
       }
 
       // get list of tabs
-      const stashTabs = result.tabStash;
-      stashTabs.forEach(function(tab) {
+      _.last(stashList).forEach(function(tab) {
         // create new tab w/ index and active status
         chrome.tabs.create({
           url: tab.url,
@@ -87,14 +106,22 @@ class Popup extends Component {
           active: tab.active
         });
       });
-    })
+
+      // remove applied stash from the stash list
+      stashList = _.dropRight(stashList);
+      chrome.storage.local.set({tabStash: stashList}, function() {
+        _this.setState({ alertText: "Stash applied.", alertIsError: false });
+      });
+    });
   }
 
   handleClear() {
-    const _this = this;
+    const _this = this; // for scoping inside callbacks
+
+    let stashList = [];
 
     // remove stash from storage
-    chrome.storage.local.remove("tabStash", function() {
+    chrome.storage.local.set({tabStash: stashList}, function() {
       let alertString;
 
       // handle error if it occurs
@@ -124,8 +151,10 @@ class Popup extends Component {
     const menuIcon = this.state.showAdvanced ? "\u2715 Close" : "\u2630 Menu";
 
     // show menu elements if toggled on
-    const advancedMenu = this.state.showAdvanced ?
+    const advancedMenu = _this.state.showAdvanced ?
       <div className="advanced-menu">
+        <p>Stash List (click to apply)</p>
+        <StashList />
         <button id="clear-button" title="Clear stashed tabs" onClick={this.handleClear}>Clear Stash</button>
       </div> : null;
 
