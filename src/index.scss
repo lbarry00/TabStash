@@ -23,14 +23,6 @@ $grey: #6B7E99;
 
 }
 
-html {
-  width: 250px;
-  font-family: "quicksandbook", Arial, sans-serif;
-}
-body {
-  font-family: "quicksandbook", Arial, sans-serif;
-}
-
 @mixin button {
   font-size: 14px;
   font-family: "quicksandbold";
@@ -48,6 +40,15 @@ body {
   }
 }
 
+html {
+  width: 300px;
+  font-family: "quicksandbook", Arial, sans-serif;
+}
+body {
+  font-family: "quicksandbook", Arial, sans-serif;
+}
+
 
 /* imports */
 @import "./popup/Popup.scss";
+@import "./StashList/StashList.scss";

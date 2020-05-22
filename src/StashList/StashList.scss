@@ -1,0 +1,59 @@
+.stash-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  height: 100px;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+}
+
+.stash {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: darken(white, 5%);
+  margin: 2px;
+
+  button {
+    @include button;
+
+    padding: 0px 5px;
+    flex-grow: 0;
+    align-self: center;
+  }
+}
+
+.stash-icons-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  flex-grow: 2;
+
+  margin: 2px;
+  padding: 0px 3px;
+  cursor: pointer;
+  min-height: 30px;
+
+  &:hover {
+    background-color: darken(white, 15%);
+  }
+
+  .tab-icon {
+    height: 14px;
+    width: auto;
+    padding: 2px;
+    margin: 2px;
+  }
+
+  p {
+    font-size: 10px;
+    font-weight: bold;
+    margin-left: 5px;
+  }
+}
